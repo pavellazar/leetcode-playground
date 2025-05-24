@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+      "name": "typescript",
+			"path": "typescript"
+		},
+    {
+      "name": "rust",
+      "path": "rust"
+    }
+  ],
+  "settings": {}
+}
