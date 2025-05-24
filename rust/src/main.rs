@@ -6,5 +6,9 @@ fn main() {
     "{:?}",
     solutions::longest_palindrome::longest_palindrome("babad".to_string())
   );
-  println!("{:?}", solutions::zig_zag_convert::convert("PAYPALISHIRING".to_string(), 3))
+  println!(
+    "{:?}",
+    solutions::zig_zag_convert::convert("PAYPALISHIRING".to_string(), 3)
+  );
+  println!("{:?}", solutions::reverse_integer::reverse(123));
 }
