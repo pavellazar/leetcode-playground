@@ -10,6 +10,7 @@ fn main() {
     "{:?}",
     solutions::zig_zag_convert::convert("PAYPALISHIRING".to_string(), 3)
   );
-  println!("{:?}", solutions::reverse_integer::reverse(123));
+  println!("{:?}", solutions::numbers::reverse(123));
   println!("{:?}", solutions::string_to_integer::atoi("123"));
+  println!("{:?}", solutions::numbers::is_palindrome(121));
 }
