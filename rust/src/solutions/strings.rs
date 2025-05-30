@@ -1,0 +1,165 @@
+pub fn longest_palindrome(s: &str) -> String {
+  let s_chars: Vec<char> = s.chars().collect();
+  let mut start = 0;
+  let mut max_len = 0;
+
+  for i in 0..s_chars.len() {
+    // Check for odd-length palindromes
+    let (odd_start, odd_len) = expand_around_center(&s_chars, i, i);
+    if odd_len > max_len {
+      start = odd_start;
+      max_len = odd_len;
+    }
+
+    // Check for even-length palindromes
+    let (even_start, even_len) = expand_around_center(&s_chars, i, i + 1);
+    if even_len > max_len {
+      start = even_start;
+      max_len = even_len;
+    }
+  }
+
+  s_chars[start..start + max_len].iter().collect()
+}
+
+fn expand_around_center(s: &[char], left: usize, right: usize) -> (usize, usize) {
+  let mut lhs: i32 = left as i32;
+  let mut rhs: i32 = right as i32;
+
+  while lhs >= 0 && lhs <= rhs && rhs < s.len() as i32 && s[lhs as usize] == s[rhs as usize] {
+    lhs -= 1;
+    rhs += 1;
+  }
+
+  ((lhs + 1) as usize, (rhs - lhs - 1) as usize)
+}
+
+pub fn convert(s: &str, num_rows: i32) -> String {
+  if num_rows == 1 {
+    return s.to_string();
+  }
+
+  let num_rows = num_rows as usize;
+  let mut rows = vec![String::new(); num_rows];
+  let mut cur_row = 0;
+  let mut going_down = false;
+
+  for c in s.chars() {
+    rows[cur_row].push(c);
+    if cur_row == 0 || cur_row == num_rows - 1 {
+      going_down = !going_down;
+    }
+    if going_down {
+      cur_row += 1;
+    } else {
+      cur_row -= 1;
+    }
+  }
+
+  rows.concat()
+}
+
+pub fn atoi(s: &str) -> i32 {
+  let mut result: i32 = 0;
+  let mut sign = 1;
+  let mut accept_sign = true;
+  let mut accept_space = true;
+
+  for c in s.chars() {
+    if c.is_whitespace() {
+      if accept_space {
+        continue;
+      }
+
+      break;
+    }
+
+    if c.is_alphabetic() {
+      break;
+    }
+
+    if c == '-' || c == '+' {
+      if !accept_sign {
+        break;
+      }
+
+      if c == '-' {
+        sign = -1;
+      }
+
+      accept_space = false;
+      accept_sign = false;
+      continue;
+    }
+
+    if let Some(digit) = c.to_digit(10) {
+      accept_space = false;
+      accept_sign = false;
+
+      // check for overflow/underflow before updating result
+      if sign == 1 && (result > (i32::MAX - digit as i32) / 10) {
+        return i32::MAX;
+      }
+      if sign == -1 && (result < (i32::MIN + digit as i32) / 10) {
+        return i32::MIN;
+      }
+
+      result = result * 10 + digit as i32 * sign;
+      continue;
+    }
+
+    break;
+  }
+
+  result
+}
+
+pub fn is_match(s: &str, p: &str) -> bool {
+  fn helper(s: &[u8], p: &[u8]) -> bool {
+    if p.is_empty() {
+      return s.is_empty();
+    }
+
+    let first_match = !s.is_empty() && (p[0] == b'.' || p[0] == s[0]);
+
+    if p.len() >= 2 && p[1] == b'*' {
+      helper(s, &p[2..]) || (first_match && helper(&s[1..], p))
+    } else {
+      first_match && helper(&s[1..], &p[1..])
+    }
+  }
+  helper(s.as_bytes(), p.as_bytes())
+}
+
+#[test]
+fn test_atoi() {
+  assert_eq!(42, atoi("+42"));
+  assert_eq!(42, atoi("42"));
+  assert_eq!(-42, atoi(" -042"));
+  assert_eq!(1337, atoi("1337c0d3"));
+  assert_eq!(0, atoi("0-1"));
+  assert_eq!(0, atoi("words and 987"));
+}
+
+#[test]
+fn test_convert() {
+  assert_eq!(convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR");
+}
+
+#[test]
+fn test_longest_palindrome() {
+  assert_eq!(longest_palindrome("whdqcudjpisufnrtsyupwtnnbsvfptrcgvobbjglmpynebblpigaflpbezjvjgbmofejyjssdhbgghgrhzuplbeptpaecfdanhlylgusptlgobkqnulxvnwuzwauewcplnvcwowmbxxnhsdmgxtvbfgnuqdpxennqglgmspbagvmjcmzmbsuacxlqfxjggrwsnbblnnwisvmpwwhomyjylbtedzrptejjsaiqzprnadkjxeqfdpkddmbzokkegtypxaafodjdwirynzurzkjzrkufsokhcdkajwmqvhcbzcnysrbsfxhfvtodqabvbuosxtonbpmgoemcgkudandrioncjigbyizekiakmrfjvezuzddjxqyevyenuebfwugqelxwpirsoyixowcmtgosuggrkdciehktojageynqkazsqxraimeopcsjxcdtzhlbvtlvzytgblwkmbfwmggrkpioeofkrmfdgfwknrbaimhefpzckrzwdvddhdqujffwvtvfyjlimkljrsnnhudyejcrtrwvtsbkxaplchgbikscfcbhovlepdojmqybzhbiionyjxqsmquehkhzdiawfxunguhqhkxqdiiwsbuhosebxrpcstpklukjcsnnzpbylzaoyrmyjatuovmaqiwfdfwyhugbeehdzeozdrvcvghekusiahfxhlzclhbegdnvkzeoafodnqbtanfwixjzirnoaiqamjgkcapeopbzbgtxsjhqurbpbuduqjziznblrhxbydxsmtjdfeepntijqpkuwmqezkhnkwbvwgnkxmkyhlbfuwaslmjzlhocsgtoujabbexvxweigplmlewumcone"), "wfdfw");
+  assert_eq!(longest_palindrome("cbbd"), "bb");
+  assert_eq!(longest_palindrome("a"), "a");
+  assert_eq!(longest_palindrome("ac"), "a");
+}
+
+#[test]
+fn test_is_match() {
+  assert_eq!(false, is_match("aa", "a"));
+  assert_eq!(true, is_match("aa", "a*"));
+  assert_eq!(true, is_match("aa", ".*"));
+  assert_eq!(false, is_match("ab", ".*c"));
+  assert_eq!(true, is_match("aab", "c*a*b"));
+  assert_eq!(true, is_match("aaa", "a*a"));
+}
