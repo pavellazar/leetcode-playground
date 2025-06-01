@@ -8,4 +8,8 @@ fn main() {
   println!("{:?}", solutions::strings::atoi("123"));
   println!("{:?}", solutions::numbers::is_palindrome(121));
   println!("{:?}", solutions::strings::is_match("aa", "a"));
+
+  let heights = vec![1, 8, 6, 2, 5, 4, 8, 3, 7];
+  println!("{:?}", solutions::arrays::container(heights));
+  println!("{:?}", solutions::numbers::to_roman(121));
 }
