@@ -32,7 +32,7 @@ pub fn reverse(x: i32) -> i32 {
   result
 }
 
-pub fn to_roman(num: i32) -> String {
+pub fn integer_to_roman(num: i32) -> String {
   if num < 1 || num > 3999 {
     return "".to_string();
   }
@@ -57,6 +57,36 @@ pub fn to_roman(num: i32) -> String {
   result
 }
 
+pub fn roman_to_integer(s: &str) -> i32 {
+  let mut result = 0;
+  let mut prev = 0;
+
+  fn value(c: char) -> i32 {
+    match c {
+      'I' => 1,
+      'V' => 5,
+      'X' => 10,
+      'L' => 50,
+      'C' => 100,
+      'D' => 500,
+      'M' => 1000,
+      _ => 0,
+    }
+  }
+
+  for c in s.chars().rev() {
+    let v = value(c);
+    if v < prev {
+      result -= v;
+    } else {
+      result += v;
+    }
+    prev = v;
+  }
+
+  result
+}
+
 #[test]
 fn test_reverse() {
   assert_eq!(0, reverse(1534236469));
@@ -73,13 +103,26 @@ fn test_palindrome() {
 
 #[test]
 fn test_to_roman() {
-  assert_eq!("I", to_roman(1));
-  assert_eq!("IV", to_roman(4));
-  assert_eq!("IX", to_roman(9));
-  assert_eq!("XLII", to_roman(42));
-  assert_eq!("XCIX", to_roman(99));
-  assert_eq!("CXXIII", to_roman(123));
-  assert_eq!("MCMXCIV", to_roman(1994));
-  assert_eq!("MMMCMXCIX", to_roman(3999));
-  assert_eq!("MMMDCCXLIX", to_roman(3749));
+  assert_eq!("I", integer_to_roman(1));
+  assert_eq!("IV", integer_to_roman(4));
+  assert_eq!("IX", integer_to_roman(9));
+  assert_eq!("XLII", integer_to_roman(42));
+  assert_eq!("XCIX", integer_to_roman(99));
+  assert_eq!("CXXIII", integer_to_roman(123));
+  assert_eq!("MCMXCIV", integer_to_roman(1994));
+  assert_eq!("MMMCMXCIX", integer_to_roman(3999));
+  assert_eq!("MMMDCCXLIX", integer_to_roman(3749));
+}
+
+#[test]
+fn test_roman_to_integer() {
+  assert_eq!(roman_to_integer("I"), 1);
+  assert_eq!(roman_to_integer("IV"), 4);
+  assert_eq!(roman_to_integer("IX"), 9);
+  assert_eq!(roman_to_integer("XLII"), 42);
+  assert_eq!(roman_to_integer("XCIX"), 99);
+  assert_eq!(roman_to_integer("CXXIII"), 123);
+  assert_eq!(roman_to_integer("MCMXCIV"), 1994);
+  assert_eq!(roman_to_integer("MMMCMXCIX"), 3999);
+  assert_eq!(roman_to_integer("MMMDCCXLIX"), 3749);
 }

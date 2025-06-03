@@ -11,5 +11,14 @@ fn main() {
 
   let heights = vec![1, 8, 6, 2, 5, 4, 8, 3, 7];
   println!("{:?}", solutions::arrays::container(heights));
-  println!("{:?}", solutions::numbers::to_roman(121));
+  println!("{:?}", solutions::numbers::integer_to_roman(121));
+  println!("{:?}", solutions::numbers::roman_to_integer("MMM"));
+  println!(
+    "{:?}",
+    solutions::strings::longest_common_prefix(vec![
+      "flow".to_string(),
+      "flight".to_string(),
+      "flower".to_string()
+    ])
+  )
 }

@@ -131,6 +131,27 @@ pub fn is_match(s: &str, p: &str) -> bool {
   helper(s.as_bytes(), p.as_bytes())
 }
 
+pub fn longest_common_prefix(strs: Vec<String>) -> String {
+  if strs.is_empty() {
+    return String::new();
+  }
+  let mut prefix: Vec<char> = strs[0].chars().collect();
+
+  for s in &strs[1..] {
+    let chars: Vec<char> = s.chars().collect();
+    let mut i = 0;
+    while i < prefix.len() && i < chars.len() && prefix[i] == chars[i] {
+      i += 1;
+    }
+    prefix.truncate(i);
+    if prefix.is_empty() {
+      break;
+    }
+  }
+
+  prefix.into_iter().collect()
+}
+
 #[test]
 fn test_atoi() {
   assert_eq!(42, atoi("+42"));
@@ -162,4 +183,42 @@ fn test_is_match() {
   assert_eq!(false, is_match("ab", ".*c"));
   assert_eq!(true, is_match("aab", "c*a*b"));
   assert_eq!(true, is_match("aaa", "a*a"));
+}
+
+#[test]
+fn test_longest_common_prefix() {
+  assert_eq!(
+    longest_common_prefix(vec![
+      "flower".to_string(),
+      "flow".to_string(),
+      "flight".to_string()
+    ]),
+    "fl"
+  );
+  assert_eq!(
+    longest_common_prefix(vec![
+      "dog".to_string(),
+      "racecar".to_string(),
+      "car".to_string()
+    ]),
+    ""
+  );
+  assert_eq!(
+    longest_common_prefix(vec![
+      "interspecies".to_string(),
+      "interstellar".to_string(),
+      "interstate".to_string()
+    ]),
+    "inters"
+  );
+  assert_eq!(
+    longest_common_prefix(vec!["throne".to_string(), "throne".to_string()]),
+    "throne"
+  );
+  assert_eq!(
+    longest_common_prefix(vec!["".to_string(), "".to_string()]),
+    ""
+  );
+  assert_eq!(longest_common_prefix(vec!["prefix".to_string()]), "prefix");
+  assert_eq!(longest_common_prefix(Vec::<String>::new()), "");
 }
