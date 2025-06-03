@@ -20,5 +20,6 @@ fn main() {
       "flight".to_string(),
       "flower".to_string()
     ])
-  )
+  );
+  println!("{:?}", solutions::arrays::three_zero_sum(vec![-1,0,1,2,-1,-4]));
 }
