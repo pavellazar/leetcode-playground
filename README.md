@@ -74,7 +74,11 @@ Uses a stack to check if parentheses are balanced and properly nested.
 
 ### 21. Merge Two Sorted Lists
 
+Uses a dummy node to merge two sorted linked lists into one sorted list.
+
 ### 23. Merge k Sorted Lists
+
+Uses a priority queue to merge k sorted linked lists into one sorted list.
 
 ### 26. Remove Duplicates from Sorted Array
 
