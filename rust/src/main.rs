@@ -28,4 +28,5 @@ fn main() {
   let list = solutions::lists::ListNode::from_vec(vec![1, 2, 3, 4, 5]);
   let result = solutions::lists::remove_nth_from_end(list, 2);
   println!("{:?}", solutions::lists::ListNode::to_vec(result));
+  println!("{:?}", solutions::strings::is_valid_parentheses("(){}[]".to_string()));
 }

@@ -152,6 +152,37 @@ pub fn longest_common_prefix(strs: Vec<String>) -> String {
   prefix.into_iter().collect()
 }
 
+pub fn is_valid_parentheses(s: String) -> bool {
+  let open_parantheses = vec!['(', '{', '['];
+  let close_parantheses = vec![')', '}', ']'];
+
+  let mut stack = Vec::new();
+  for c in s.chars() {
+    if open_parantheses.contains(&c) {
+      stack.push(c);
+    } else if close_parantheses.contains(&c) {
+      let last = stack.pop();
+      let index = close_parantheses.iter().position(|&x| x == c);
+
+      if let Some(index) = index {
+        if let Some(last) = last {
+          if last != open_parantheses[index] {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  stack.is_empty()
+}
+
 #[test]
 fn test_atoi() {
   assert_eq!(42, atoi("+42"));
@@ -221,4 +252,17 @@ fn test_longest_common_prefix() {
   );
   assert_eq!(longest_common_prefix(vec!["prefix".to_string()]), "prefix");
   assert_eq!(longest_common_prefix(Vec::<String>::new()), "");
+}
+
+#[test]
+fn test_is_valid_parantheses() {
+  assert_eq!(is_valid_parentheses("()".to_string()), true);
+  assert_eq!(is_valid_parentheses("()[]{}".to_string()), true);
+  assert_eq!(is_valid_parentheses("(]".to_string()), false);
+  assert_eq!(is_valid_parentheses("([)]".to_string()), false);
+  assert_eq!(is_valid_parentheses("{[]}".to_string()), true);
+  assert_eq!(is_valid_parentheses("".to_string()), true);
+  assert_eq!(is_valid_parentheses("((()))".to_string()), true);
+  assert_eq!(is_valid_parentheses("({[()]})".to_string()), true);
+  assert_eq!(is_valid_parentheses("({[()]}){".to_string()), false);
 }
