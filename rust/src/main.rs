@@ -38,5 +38,7 @@ fn main() {
     solutions::lists::ListNode::from_vec(vec![1, 3, 4]),
     solutions::lists::ListNode::from_vec(vec![2, 6])
   ]));
-
+  println!("{:?}", solutions::lists::middle_node(
+    solutions::lists::ListNode::from_vec(vec![1, 2, 3, 4, 5])
+  ));
 }

@@ -261,3 +261,5 @@ Uses a priority queue to merge k sorted linked lists into one sorted list.
 ### 704. Binary Search
 
 ### 876. Middle of the Linked List
+
+Use a slow and fast pointer to find the middle node of a linked list.

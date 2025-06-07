@@ -120,6 +120,24 @@ pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>>
   dummy.next
 }
 
+pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+  let mut slow = head.clone();
+  let mut fast = head.clone();
+
+  while fast.is_some() {
+    fast = fast.as_ref().unwrap().next.clone();
+
+    if fast.is_none() {
+      break;
+    }
+
+    fast = fast.as_ref().unwrap().next.clone();
+    slow = slow.as_ref().unwrap().next.clone();
+  }
+
+  slow
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -174,6 +192,21 @@ mod tests {
     let single_list = ListNode::from_vec(vec![1]);
     let lists = vec![single_list];
     let result = merge_k_lists(lists);
+    assert_eq!(ListNode::to_vec(result), vec![1]);
+  }
+
+  #[test]
+  fn test_middle_node() {
+    let list = ListNode::from_vec(vec![1, 2, 3, 4, 5]);
+    let result = middle_node(list);
+    assert_eq!(ListNode::to_vec(result), vec![3, 4, 5]);
+
+    let list = ListNode::from_vec(vec![1, 2, 3, 4]);
+    let result = middle_node(list);
+    assert_eq!(ListNode::to_vec(result), vec![3, 4]);
+
+    let list = ListNode::from_vec(vec![1]);
+    let result = middle_node(list);
     assert_eq!(ListNode::to_vec(result), vec![1]);
   }
 }
