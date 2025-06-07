@@ -37,7 +37,7 @@ pub fn container(height: Vec<i32>) -> i32 {
 }
 
 pub fn three_zero_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-  return three_sum(nums, 0)
+  return three_sum(nums, 0);
 }
 
 fn three_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
@@ -61,7 +61,7 @@ fn three_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
           left += 1;
         }
         while left < right && nums[right] == nums[right - 1] {
-          right -= 1; 
+          right -= 1;
         }
         left += 1;
         right -= 1;
@@ -74,6 +74,24 @@ fn three_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
   }
 
   result
+}
+
+pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
+  if nums.is_empty() {
+    return 0;
+  }
+
+  let mut unique_count = 1;
+
+  for i in 1..nums.len() {
+    if nums[i] != nums[unique_count - 1] {
+      nums[unique_count] = nums[i];
+      unique_count += 1;
+    }
+  }
+
+  nums.truncate(unique_count);
+  unique_count as i32
 }
 
 #[test]
@@ -90,7 +108,21 @@ fn test_container() {
 
 #[test]
 fn test_three_zero_sum() {
-  assert_eq!(three_zero_sum(vec![-1, 0, 1, 2, -1, -4]), vec![vec![-1, -1, 2], vec![-1, 0, 1]]);
+  assert_eq!(
+    three_zero_sum(vec![-1, 0, 1, 2, -1, -4]),
+    vec![vec![-1, -1, 2], vec![-1, 0, 1]]
+  );
   assert_eq!(three_zero_sum(vec![0, 0, 0]), vec![vec![0, 0, 0]]);
   assert_eq!(three_zero_sum(vec![]), Vec::<Vec<i32>>::new());
+}
+
+#[test]
+fn test_remove_duplicates() {
+  let mut nums = vec![1, 1, 2];
+  assert_eq!(remove_duplicates(&mut nums), 2);
+  assert_eq!(nums, vec![1, 2]);
+
+  let mut nums = vec![0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+  assert_eq!(remove_duplicates(&mut nums), 5);
+  assert_eq!(nums[..5], [0, 1, 2, 3, 4]);
 }

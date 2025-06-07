@@ -82,6 +82,8 @@ Uses a priority queue to merge k sorted linked lists into one sorted list.
 
 ### 26. Remove Duplicates from Sorted Array
 
+Uses two pointers to overwrite duplicates in a sorted array.
+
 ### 33. Search in Rotated Sorted Array
 
 ### 46. Permutations
