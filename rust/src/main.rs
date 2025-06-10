@@ -28,17 +28,30 @@ fn main() {
   let list = solutions::lists::ListNode::from_vec(vec![1, 2, 3, 4, 5]);
   let result = solutions::lists::remove_nth_from_end(list, 2);
   println!("{:?}", solutions::lists::ListNode::to_vec(result));
-  println!("{:?}", solutions::strings::is_valid_parentheses("(){}[]".to_string()));
-  println!("{:?}", solutions::lists::merge_two_lists(
-    solutions::lists::ListNode::from_vec(vec![1, 2, 4]),
-    solutions::lists::ListNode::from_vec(vec![1, 3, 4])
-  ));
-  println!("{:?}", solutions::lists::merge_k_lists(vec![
-    solutions::lists::ListNode::from_vec(vec![1, 4, 5]),
-    solutions::lists::ListNode::from_vec(vec![1, 3, 4]),
-    solutions::lists::ListNode::from_vec(vec![2, 6])
-  ]));
-  println!("{:?}", solutions::lists::middle_node(
-    solutions::lists::ListNode::from_vec(vec![1, 2, 3, 4, 5])
-  ));
+  println!(
+    "{:?}",
+    solutions::strings::is_valid_parentheses("(){}[]".to_string())
+  );
+  println!(
+    "{:?}",
+    solutions::lists::merge_two_lists(
+      solutions::lists::ListNode::from_vec(vec![1, 2, 4]),
+      solutions::lists::ListNode::from_vec(vec![1, 3, 4])
+    )
+  );
+  println!(
+    "{:?}",
+    solutions::lists::merge_k_lists(vec![
+      solutions::lists::ListNode::from_vec(vec![1, 4, 5]),
+      solutions::lists::ListNode::from_vec(vec![1, 3, 4]),
+      solutions::lists::ListNode::from_vec(vec![2, 6])
+    ])
+  );
+  println!(
+    "{:?}",
+    solutions::lists::middle_node(solutions::lists::ListNode::from_vec(vec![1, 2, 3, 4, 5]))
+  );
+  let mut nums = vec![1, 1, 2, 2, 4, 5, 6, 7, 7, 9];
+  println!("{:?}", solutions::arrays::remove_duplicates(&mut nums));
+  println!("{:?}", solutions::arrays::rotated_array_search(nums, 5))
 }
