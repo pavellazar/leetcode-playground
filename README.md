@@ -114,6 +114,8 @@ Kadane's Algorithm
 
 ### 54. Spiral Matrix
 
+Uses a layer-by-layer approach to traverse a 2D matrix in spiral order.
+
 ### 55. Jump Game
 
 ### 56. Merge Intervals
