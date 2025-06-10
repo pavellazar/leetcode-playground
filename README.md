@@ -86,6 +86,8 @@ Uses two pointers to overwrite duplicates in a sorted array.
 
 ### 33. Search in Rotated Sorted Array
 
+Uses binary search with left and right pointers to find an element in a rotated sorted array.
+
 ### 46. Permutations
 
 ### 48. Rotate Image

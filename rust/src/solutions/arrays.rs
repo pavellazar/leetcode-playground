@@ -123,6 +123,35 @@ pub fn rotated_array_search(nums: Vec<i32>, target: i32) -> i32 {
   -1
 }
 
+pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
+  fn backtrack(
+    nums: &Vec<i32>,
+    used: &mut Vec<bool>,
+    current: &mut Vec<i32>,
+    result: &mut Vec<Vec<i32>>,
+  ) {
+    if current.len() == nums.len() {
+      result.push(current.clone());
+      return;
+    }
+    for i in 0..nums.len() {
+      if used[i] {
+        continue;
+      }
+      used[i] = true;
+      current.push(nums[i]);
+      backtrack(nums, used, current, result);
+      current.pop();
+      used[i] = false;
+    }
+  }
+  let mut result = Vec::new();
+  let mut current = Vec::new();
+  let mut used = vec![false; nums.len()];
+  backtrack(&nums, &mut used, &mut current, &mut result);
+  result
+}
+
 #[test]
 fn test_two_sum() {
   assert_eq!(two_sum(vec![2, 7, 11, 15], 9), vec![0, 1]);
@@ -161,4 +190,16 @@ fn test_rotated_array_search() {
   assert_eq!(rotated_array_search(vec![4, 5, 6, 7, 0, 1, 2], 0), 4);
   assert_eq!(rotated_array_search(vec![4, 5, 6, 7, 0, 1, 2], 3), -1);
   assert_eq!(rotated_array_search(vec![1], 0), -1);
+}
+
+#[test]
+fn test_permute() {
+  let result = permute(vec![1, 2, 3]);
+  assert_eq!(result.len(), 6);
+  assert!(result.contains(&vec![1, 2, 3]));
+  assert!(result.contains(&vec![1, 3, 2]));
+  assert!(result.contains(&vec![2, 1, 3]));
+  assert!(result.contains(&vec![2, 3, 1]));
+  assert!(result.contains(&vec![3, 1, 2]));
+  assert!(result.contains(&vec![3, 2, 1]));
 }
