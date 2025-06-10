@@ -90,9 +90,16 @@ Uses binary search with left and right pointers to find an element in a rotated 
 
 ### 46. Permutations
 
+Uses backtracking to generate all permutations of a list of numbers.
+
 ### 48. Rotate Image
 
+Rotates a 2D matrix by transposing it and then reversing each row.
+
 ### 49. Group Anagrams
+
+Uses a hash map to group words that are anagrams by sorting their characters.
+Optimization: instead of sorting the string key, we can count the letters, however sorting is a more general solution
 
 ### 53. Maximum Subarray
 

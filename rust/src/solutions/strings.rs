@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 pub fn longest_palindrome(s: &str) -> String {
   let s_chars: Vec<char> = s.chars().collect();
   let mut start = 0;
@@ -183,86 +185,124 @@ pub fn is_valid_parentheses(s: String) -> bool {
   stack.is_empty()
 }
 
-#[test]
-fn test_atoi() {
-  assert_eq!(42, atoi("+42"));
-  assert_eq!(42, atoi("42"));
-  assert_eq!(-42, atoi(" -042"));
-  assert_eq!(1337, atoi("1337c0d3"));
-  assert_eq!(0, atoi("0-1"));
-  assert_eq!(0, atoi("words and 987"));
+pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
+  let mut map: HashMap<String, Vec<String>> = HashMap::new();
+
+  for s in strs {
+    let key = sort_string(&s);
+    map.entry(key).or_insert_with(Vec::new).push(s);
+  }
+
+  map.into_values().collect()
 }
 
-#[test]
-fn test_convert() {
-  assert_eq!(convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR");
+fn sort_string(s: &str) -> String {
+  let mut chars: Vec<char> = s.chars().collect();
+  chars.sort_unstable();
+  chars.into_iter().collect()
 }
 
-#[test]
-fn test_longest_palindrome() {
-  assert_eq!(longest_palindrome("whdqcudjpisufnrtsyupwtnnbsvfptrcgvobbjglmpynebblpigaflpbezjvjgbmofejyjssdhbgghgrhzuplbeptpaecfdanhlylgusptlgobkqnulxvnwuzwauewcplnvcwowmbxxnhsdmgxtvbfgnuqdpxennqglgmspbagvmjcmzmbsuacxlqfxjggrwsnbblnnwisvmpwwhomyjylbtedzrptejjsaiqzprnadkjxeqfdpkddmbzokkegtypxaafodjdwirynzurzkjzrkufsokhcdkajwmqvhcbzcnysrbsfxhfvtodqabvbuosxtonbpmgoemcgkudandrioncjigbyizekiakmrfjvezuzddjxqyevyenuebfwugqelxwpirsoyixowcmtgosuggrkdciehktojageynqkazsqxraimeopcsjxcdtzhlbvtlvzytgblwkmbfwmggrkpioeofkrmfdgfwknrbaimhefpzckrzwdvddhdqujffwvtvfyjlimkljrsnnhudyejcrtrwvtsbkxaplchgbikscfcbhovlepdojmqybzhbiionyjxqsmquehkhzdiawfxunguhqhkxqdiiwsbuhosebxrpcstpklukjcsnnzpbylzaoyrmyjatuovmaqiwfdfwyhugbeehdzeozdrvcvghekusiahfxhlzclhbegdnvkzeoafodnqbtanfwixjzirnoaiqamjgkcapeopbzbgtxsjhqurbpbuduqjziznblrhxbydxsmtjdfeepntijqpkuwmqezkhnkwbvwgnkxmkyhlbfuwaslmjzlhocsgtoujabbexvxweigplmlewumcone"), "wfdfw");
-  assert_eq!(longest_palindrome("cbbd"), "bb");
-  assert_eq!(longest_palindrome("a"), "a");
-  assert_eq!(longest_palindrome("ac"), "a");
-}
+#[cfg(test)]
+mod tests {
+  use super::*;
+  #[test]
+  fn test_atoi() {
+    assert_eq!(42, atoi("+42"));
+    assert_eq!(42, atoi("42"));
+    assert_eq!(-42, atoi(" -042"));
+    assert_eq!(1337, atoi("1337c0d3"));
+    assert_eq!(0, atoi("0-1"));
+    assert_eq!(0, atoi("words and 987"));
+  }
 
-#[test]
-fn test_is_match() {
-  assert_eq!(false, is_match("aa", "a"));
-  assert_eq!(true, is_match("aa", "a*"));
-  assert_eq!(true, is_match("aa", ".*"));
-  assert_eq!(false, is_match("ab", ".*c"));
-  assert_eq!(true, is_match("aab", "c*a*b"));
-  assert_eq!(true, is_match("aaa", "a*a"));
-}
+  #[test]
+  fn test_convert() {
+    assert_eq!(convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR");
+  }
 
-#[test]
-fn test_longest_common_prefix() {
-  assert_eq!(
-    longest_common_prefix(vec![
-      "flower".to_string(),
-      "flow".to_string(),
-      "flight".to_string()
-    ]),
-    "fl"
-  );
-  assert_eq!(
-    longest_common_prefix(vec![
-      "dog".to_string(),
-      "racecar".to_string(),
-      "car".to_string()
-    ]),
-    ""
-  );
-  assert_eq!(
-    longest_common_prefix(vec![
-      "interspecies".to_string(),
-      "interstellar".to_string(),
-      "interstate".to_string()
-    ]),
-    "inters"
-  );
-  assert_eq!(
-    longest_common_prefix(vec!["throne".to_string(), "throne".to_string()]),
-    "throne"
-  );
-  assert_eq!(
-    longest_common_prefix(vec!["".to_string(), "".to_string()]),
-    ""
-  );
-  assert_eq!(longest_common_prefix(vec!["prefix".to_string()]), "prefix");
-  assert_eq!(longest_common_prefix(Vec::<String>::new()), "");
-}
+  #[test]
+  fn test_longest_palindrome() {
+    assert_eq!(longest_palindrome("whdqcudjpisufnrtsyupwtnnbsvfptrcgvobbjglmpynebblpigaflpbezjvjgbmofejyjssdhbgghgrhzuplbeptpaecfdanhlylgusptlgobkqnulxvnwuzwauewcplnvcwowmbxxnhsdmgxtvbfgnuqdpxennqglgmspbagvmjcmzmbsuacxlqfxjggrwsnbblnnwisvmpwwhomyjylbtedzrptejjsaiqzprnadkjxeqfdpkddmbzokkegtypxaafodjdwirynzurzkjzrkufsokhcdkajwmqvhcbzcnysrbsfxhfvtodqabvbuosxtonbpmgoemcgkudandrioncjigbyizekiakmrfjvezuzddjxqyevyenuebfwugqelxwpirsoyixowcmtgosuggrkdciehktojageynqkazsqxraimeopcsjxcdtzhlbvtlvzytgblwkmbfwmggrkpioeofkrmfdgfwknrbaimhefpzckrzwdvddhdqujffwvtvfyjlimkljrsnnhudyejcrtrwvtsbkxaplchgbikscfcbhovlepdojmqybzhbiionyjxqsmquehkhzdiawfxunguhqhkxqdiiwsbuhosebxrpcstpklukjcsnnzpbylzaoyrmyjatuovmaqiwfdfwyhugbeehdzeozdrvcvghekusiahfxhlzclhbegdnvkzeoafodnqbtanfwixjzirnoaiqamjgkcapeopbzbgtxsjhqurbpbuduqjziznblrhxbydxsmtjdfeepntijqpkuwmqezkhnkwbvwgnkxmkyhlbfuwaslmjzlhocsgtoujabbexvxweigplmlewumcone"), "wfdfw");
+    assert_eq!(longest_palindrome("cbbd"), "bb");
+    assert_eq!(longest_palindrome("a"), "a");
+    assert_eq!(longest_palindrome("ac"), "a");
+  }
 
-#[test]
-fn test_is_valid_parantheses() {
-  assert_eq!(is_valid_parentheses("()".to_string()), true);
-  assert_eq!(is_valid_parentheses("()[]{}".to_string()), true);
-  assert_eq!(is_valid_parentheses("(]".to_string()), false);
-  assert_eq!(is_valid_parentheses("([)]".to_string()), false);
-  assert_eq!(is_valid_parentheses("{[]}".to_string()), true);
-  assert_eq!(is_valid_parentheses("".to_string()), true);
-  assert_eq!(is_valid_parentheses("((()))".to_string()), true);
-  assert_eq!(is_valid_parentheses("({[()]})".to_string()), true);
-  assert_eq!(is_valid_parentheses("({[()]}){".to_string()), false);
+  #[test]
+  fn test_is_match() {
+    assert_eq!(false, is_match("aa", "a"));
+    assert_eq!(true, is_match("aa", "a*"));
+    assert_eq!(true, is_match("aa", ".*"));
+    assert_eq!(false, is_match("ab", ".*c"));
+    assert_eq!(true, is_match("aab", "c*a*b"));
+    assert_eq!(true, is_match("aaa", "a*a"));
+  }
+
+  #[test]
+  fn test_longest_common_prefix() {
+    assert_eq!(
+      longest_common_prefix(vec![
+        "flower".to_string(),
+        "flow".to_string(),
+        "flight".to_string()
+      ]),
+      "fl"
+    );
+    assert_eq!(
+      longest_common_prefix(vec![
+        "dog".to_string(),
+        "racecar".to_string(),
+        "car".to_string()
+      ]),
+      ""
+    );
+    assert_eq!(
+      longest_common_prefix(vec![
+        "interspecies".to_string(),
+        "interstellar".to_string(),
+        "interstate".to_string()
+      ]),
+      "inters"
+    );
+    assert_eq!(
+      longest_common_prefix(vec!["throne".to_string(), "throne".to_string()]),
+      "throne"
+    );
+    assert_eq!(
+      longest_common_prefix(vec!["".to_string(), "".to_string()]),
+      ""
+    );
+    assert_eq!(longest_common_prefix(vec!["prefix".to_string()]), "prefix");
+    assert_eq!(longest_common_prefix(Vec::<String>::new()), "");
+  }
+
+  #[test]
+  fn test_is_valid_parantheses() {
+    assert_eq!(is_valid_parentheses("()".to_string()), true);
+    assert_eq!(is_valid_parentheses("()[]{}".to_string()), true);
+    assert_eq!(is_valid_parentheses("(]".to_string()), false);
+    assert_eq!(is_valid_parentheses("([)]".to_string()), false);
+    assert_eq!(is_valid_parentheses("{[]}".to_string()), true);
+    assert_eq!(is_valid_parentheses("".to_string()), true);
+    assert_eq!(is_valid_parentheses("((()))".to_string()), true);
+    assert_eq!(is_valid_parentheses("({[()]})".to_string()), true);
+    assert_eq!(is_valid_parentheses("({[()]}){".to_string()), false);
+  }
+
+  #[test]
+  fn test_group_anagrams() {
+    let input = vec![
+      "eat".to_string(),
+      "tea".to_string(),
+      "tan".to_string(),
+      "ate".to_string(),
+      "nat".to_string(),
+      "bat".to_string(),
+    ];
+    let result = group_anagrams(input);
+    assert_eq!(result.len(), 3);
+    assert!(result.iter().any(|v| v == &vec!["bat".to_string()]));
+    assert!(result.iter().any(|v| v == &vec!["eat".to_string(), "tea".to_string(), "ate".to_string()]));
+    assert!(result.iter().any(|v| v == &vec!["tan".to_string(), "nat".to_string()]));
+  }
 }

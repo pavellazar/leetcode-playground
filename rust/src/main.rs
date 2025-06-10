@@ -53,6 +53,25 @@ fn main() {
   );
   let mut nums = vec![1, 1, 2, 2, 4, 5, 6, 7, 7, 9];
   println!("{:?}", solutions::arrays::remove_duplicates(&mut nums));
-  println!("{:?}", solutions::arrays::rotated_array_search(nums.clone(), 5));
+  println!(
+    "{:?}",
+    solutions::arrays::rotated_array_search(nums.clone(), 5)
+  );
   println!("{:?}", solutions::arrays::permute(nums).len());
+  println!(
+    "{:?}",
+    solutions::matrix::rotate(&mut vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]])
+  );
+
+  println!(
+    "{:?}",
+    solutions::strings::group_anagrams(vec![
+      "eat".to_string(),
+      "tea".to_string(),
+      "tan".to_string(),
+      "ate".to_string(),
+      "nat".to_string(),
+      "bat".to_string()
+    ])
+  );
 }
