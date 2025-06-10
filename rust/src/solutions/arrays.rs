@@ -152,54 +152,81 @@ pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
   result
 }
 
-#[test]
-fn test_two_sum() {
-  assert_eq!(two_sum(vec![2, 7, 11, 15], 9), vec![0, 1]);
-  assert_eq!(two_sum(vec![3, 2, 4], 6), vec![1, 2]);
-  assert_eq!(two_sum(vec![3, 3], 6), vec![0, 1]);
+pub fn max_sub_array(nums: Vec<i32>) -> i32 {
+  let mut global = nums[0];
+  let mut current = nums[0];
+
+  for i in 1..nums.len() {
+    current = nums[i].max(current + nums[i]);
+    if current > global {
+      global = current
+    }
+  }
+
+  global
 }
 
-#[test]
-fn test_container() {
-  assert_eq!(49, container(vec![1, 8, 6, 2, 5, 4, 8, 3, 7]));
-}
+#[cfg(test)]
+mod tests {
+  use super::*;
 
-#[test]
-fn test_three_zero_sum() {
-  assert_eq!(
-    three_zero_sum(vec![-1, 0, 1, 2, -1, -4]),
-    vec![vec![-1, -1, 2], vec![-1, 0, 1]]
-  );
-  assert_eq!(three_zero_sum(vec![0, 0, 0]), vec![vec![0, 0, 0]]);
-  assert_eq!(three_zero_sum(vec![]), Vec::<Vec<i32>>::new());
-}
+  #[test]
+  fn test_two_sum() {
+    assert_eq!(two_sum(vec![2, 7, 11, 15], 9), vec![0, 1]);
+    assert_eq!(two_sum(vec![3, 2, 4], 6), vec![1, 2]);
+    assert_eq!(two_sum(vec![3, 3], 6), vec![0, 1]);
+  }
 
-#[test]
-fn test_remove_duplicates() {
-  let mut nums = vec![1, 1, 2];
-  assert_eq!(remove_duplicates(&mut nums), 2);
-  assert_eq!(nums, vec![1, 2]);
+  #[test]
+  fn test_container() {
+    assert_eq!(49, container(vec![1, 8, 6, 2, 5, 4, 8, 3, 7]));
+  }
 
-  let mut nums = vec![0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
-  assert_eq!(remove_duplicates(&mut nums), 5);
-  assert_eq!(nums[..5], [0, 1, 2, 3, 4]);
-}
+  #[test]
+  fn test_three_zero_sum() {
+    assert_eq!(
+      three_zero_sum(vec![-1, 0, 1, 2, -1, -4]),
+      vec![vec![-1, -1, 2], vec![-1, 0, 1]]
+    );
+    assert_eq!(three_zero_sum(vec![0, 0, 0]), vec![vec![0, 0, 0]]);
+    assert_eq!(three_zero_sum(vec![]), Vec::<Vec<i32>>::new());
+  }
 
-#[test]
-fn test_rotated_array_search() {
-  assert_eq!(rotated_array_search(vec![4, 5, 6, 7, 0, 1, 2], 0), 4);
-  assert_eq!(rotated_array_search(vec![4, 5, 6, 7, 0, 1, 2], 3), -1);
-  assert_eq!(rotated_array_search(vec![1], 0), -1);
-}
+  #[test]
+  fn test_remove_duplicates() {
+    let mut nums = vec![1, 1, 2];
+    assert_eq!(remove_duplicates(&mut nums), 2);
+    assert_eq!(nums, vec![1, 2]);
 
-#[test]
-fn test_permute() {
-  let result = permute(vec![1, 2, 3]);
-  assert_eq!(result.len(), 6);
-  assert!(result.contains(&vec![1, 2, 3]));
-  assert!(result.contains(&vec![1, 3, 2]));
-  assert!(result.contains(&vec![2, 1, 3]));
-  assert!(result.contains(&vec![2, 3, 1]));
-  assert!(result.contains(&vec![3, 1, 2]));
-  assert!(result.contains(&vec![3, 2, 1]));
+    let mut nums = vec![0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+    assert_eq!(remove_duplicates(&mut nums), 5);
+    assert_eq!(nums[..5], [0, 1, 2, 3, 4]);
+  }
+
+  #[test]
+  fn test_rotated_array_search() {
+    assert_eq!(rotated_array_search(vec![4, 5, 6, 7, 0, 1, 2], 0), 4);
+    assert_eq!(rotated_array_search(vec![4, 5, 6, 7, 0, 1, 2], 3), -1);
+    assert_eq!(rotated_array_search(vec![1], 0), -1);
+  }
+
+  #[test]
+  fn test_permute() {
+    let result = permute(vec![1, 2, 3]);
+    assert_eq!(result.len(), 6);
+    assert!(result.contains(&vec![1, 2, 3]));
+    assert!(result.contains(&vec![1, 3, 2]));
+    assert!(result.contains(&vec![2, 1, 3]));
+    assert!(result.contains(&vec![2, 3, 1]));
+    assert!(result.contains(&vec![3, 1, 2]));
+    assert!(result.contains(&vec![3, 2, 1]));
+  }
+
+  #[test]
+  fn test_max_sub_array() {
+    assert_eq!(max_sub_array(vec![-2, 1, -3, 4, -1, 2, 1, -5, 4]), 6);
+    assert_eq!(max_sub_array(vec![1]), 1);
+    assert_eq!(max_sub_array(vec![5, 4, -1, 7, 8]), 23);
+    assert_eq!(max_sub_array(vec![-2, -3, -1]), -1);
+  }
 }

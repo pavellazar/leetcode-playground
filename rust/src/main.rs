@@ -74,4 +74,6 @@ fn main() {
       "bat".to_string()
     ])
   );
+
+  println!("{:?}", solutions::arrays::max_sub_array(vec![-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 }

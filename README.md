@@ -103,6 +103,15 @@ Optimization: instead of sorting the string key, we can count the letters, howev
 
 ### 53. Maximum Subarray
 
+Uses Kadane's algorithm to find the contiguous subarray with the maximum sum.
+Kadane's Algorithm
+
+> 1. Initialize two variables: `max_current` and `max_global` to the first element of the array.
+> 2. Iterate through the array starting from the second element.
+> 3. For each element, update `max_current` to be the maximum of the current element and the sum of `max_current` and the current element.
+> 4. If `max_current` is greater than `max_global`, update `max_global`.
+> 5. After iterating through the array, `max_global` will contain the maximum subarray sum.
+
 ### 54. Spiral Matrix
 
 ### 55. Jump Game
