@@ -181,9 +181,46 @@ pub fn find_missing_number(nums: Vec<i32>) -> usize {
   left
 }
 
+pub fn coin_change(coins: Vec<i32>, amount: i32) -> i32 {
+  let mut dp = vec![amount + 1; (amount + 1) as usize];
+  dp[0] = 0;
+  for a in 1..=amount {
+    for &coin in &coins {
+      if coin <= a {
+        dp[a as usize] = dp[a as usize].min(1 + dp[(a - coin) as usize]);
+      }
+    }
+  }
+  if dp[amount as usize] > amount {
+    -1
+  } else {
+    dp[amount as usize]
+  }
+}
+
+pub fn coin_change_combinations(coins: Vec<i32>, amount: i32) -> i32 {
+  let mut dp = vec![0; (amount + 1) as usize];
+  dp[0] = 1;
+  for &coin in &coins {
+    for a in coin..=amount {
+      dp[a as usize] += dp[(a - coin) as usize];
+    }
+  }
+  dp[amount as usize]
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_coin_change() {
+    assert_eq!(coin_change(vec![1, 2, 5], 11), 3);
+    assert_eq!(coin_change(vec![2], 3), -1);
+    assert_eq!(coin_change(vec![1], 0), 0);
+    assert_eq!(coin_change(vec![1], 2), 2);
+    assert_eq!(coin_change(vec![1, 2, 5], 100), 20);
+  }
 
   #[test]
   fn test_two_sum() {

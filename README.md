@@ -224,6 +224,8 @@ Uses a layer-by-layer approach to traverse a 2D matrix in spiral order.
 
 ### 236. Lowest Common Ancestor of a Binary Tree
 
+Recursively finds the lowest common ancestor of two nodes in a binary tree by checking if the current node is one of the nodes or if both nodes are in different subtrees.
+
 ### 238. Product of Array Except Self
 
 ### 239. Sliding Window Maximum
@@ -250,6 +252,8 @@ Uses a max heap and a min heap to maintain the median of a data stream in O(log 
 
 ### 322. Coin Change
 
+Uses dynamic programming to find the minimum number of coins needed to make a given amount.
+
 ### 328. Odd Even Linked List
 
 ### 337. House Robber III
@@ -273,6 +277,10 @@ Uses a max heap and a min heap to maintain the median of a data stream in O(log 
 ### 445. Add Two Numbers II
 
 ### 450. Delete Node in a BST
+
+### 518. Coin Change II
+
+Uses dynamic programming to find the number of combinations to make a given amount with a set of coins.
 
 ### 543. Diameter of Binary Tree
 
