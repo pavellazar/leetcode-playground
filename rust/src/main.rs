@@ -81,4 +81,8 @@ fn main() {
     vec![4, 5, 6],
     vec![7, 8, 9]
   ]));
+
+  println!("{:?}", solutions::lists::reverse_list(
+    solutions::lists::ListNode::from_vec(vec![1, 2, 3, 4, 5])
+  ));
 }

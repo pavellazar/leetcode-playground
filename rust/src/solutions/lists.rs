@@ -138,6 +138,19 @@ pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
   slow
 }
 
+pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+  let mut prev = None;
+  let mut current = head;
+
+  while let Some(mut node) = current {
+    current = node.next.take();
+    node.next = prev;
+    prev = Some(node);
+  }
+
+  prev
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -208,5 +221,20 @@ mod tests {
     let list = ListNode::from_vec(vec![1]);
     let result = middle_node(list);
     assert_eq!(ListNode::to_vec(result), vec![1]);
+  }
+
+  #[test]
+  fn test_reverse_list() {
+    let list = ListNode::from_vec(vec![1, 2, 3, 4, 5]);
+    let result = reverse_list(list);
+    assert_eq!(ListNode::to_vec(result), vec![5, 4, 3, 2, 1]);
+
+    let list = ListNode::from_vec(vec![1]);
+    let result = reverse_list(list);
+    assert_eq!(ListNode::to_vec(result), vec![1]);
+
+    let list = ListNode::from_vec(vec![]);
+    let result = reverse_list(list);
+    assert_eq!(ListNode::to_vec(result), vec![]);
   }
 }
