@@ -4,3 +4,4 @@ pub mod numbers;
 pub mod lists;
 pub mod matrix;
 pub mod median_finder;
+pub mod trees;
