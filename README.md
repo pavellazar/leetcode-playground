@@ -242,6 +242,8 @@ Uses a layer-by-layer approach to traverse a 2D matrix in spiral order.
 
 ### 295. Find Median from Data Stream
 
+Uses a max heap and a min heap to maintain the median of a data stream in O(log n) time for insertion and O(1) time for finding the median.
+
 ### 297. Serialize and Deserialize Binary Tree
 
 ### 300. Longest Increasing Subsequence
