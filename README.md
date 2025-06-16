@@ -240,6 +240,8 @@ Uses a layer-by-layer approach to traverse a 2D matrix in spiral order.
 
 ### 287. Find the Duplicate Number
 
+### 295. Find Median from Data Stream
+
 ### 297. Serialize and Deserialize Binary Tree
 
 ### 300. Longest Increasing Subsequence

@@ -1,3 +1,5 @@
+use crate::solutions::median_finder::MedianFinder;
+
 mod solutions;
 
 fn main() {
@@ -93,4 +95,8 @@ fn main() {
     "{:?}",
     solutions::arrays::find_missing_number(vec![0, 1, 2, 4, 5])
   );
+
+  let mut mf = MedianFinder::new();
+  mf.add_num(3);
+  println!("{:?}", mf.find_median());
 }
