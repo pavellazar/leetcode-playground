@@ -166,6 +166,21 @@ pub fn max_sub_array(nums: Vec<i32>) -> i32 {
   global
 }
 
+pub fn find_missing_number(nums: Vec<i32>) -> usize {
+  let mut left = 0;
+  let mut right = nums.len();
+
+  while left < right {
+    let mid = left + (right - left) / 2;
+    if nums[mid] as usize > mid {
+      right = mid;
+    } else {
+      left = mid + 1;
+    }
+  }
+  left
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -228,5 +243,14 @@ mod tests {
     assert_eq!(max_sub_array(vec![1]), 1);
     assert_eq!(max_sub_array(vec![5, 4, -1, 7, 8]), 23);
     assert_eq!(max_sub_array(vec![-2, -3, -1]), -1);
+  }
+
+  #[test]
+  fn test_find_missing_number() {
+    assert_eq!(find_missing_number(vec![0, 1, 2, 3, 5]), 4);
+    assert_eq!(find_missing_number(vec![0, 1, 3]), 2);
+    assert_eq!(find_missing_number(vec![1, 2, 3]), 0);
+    assert_eq!(find_missing_number(vec![0]), 1);
+    assert_eq!(find_missing_number(vec![]), 0);
   }
 }

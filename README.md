@@ -285,3 +285,7 @@ Uses a layer-by-layer approach to traverse a 2D matrix in spiral order.
 ### 876. Middle of the Linked List
 
 Use a slow and fast pointer to find the middle node of a linked list.
+
+### 1060. Find missing number in a sorted Array
+
+Use binary search to find the missing number in a sorted array of unique integers. The array contains numbers from 0 to n, with one number missing. Tests binary search and edge case handling.
