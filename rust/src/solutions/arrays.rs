@@ -209,9 +209,89 @@ pub fn coin_change_combinations(coins: Vec<i32>, amount: i32) -> i32 {
   dp[amount as usize]
 }
 
+pub fn can_jump(nums: Vec<i32>) -> bool {
+  fn helper(nums: &Vec<i32>, pos: usize, memo: &mut Vec<Option<bool>>) -> bool {
+    if pos >= nums.len() {
+      return false;
+    }
+
+    if pos == nums.len() - 1 {
+      return true;
+    }
+
+    if let Some(res) = memo[pos] {
+      return res;
+    }
+
+    let jumps = nums[pos] as usize;
+    for i in 1..=jumps {
+      if helper(nums, pos + i, memo) {
+        memo[pos] = Some(true);
+        return true;
+      }
+    }
+    memo[pos] = Some(false);
+    return false;
+  }
+
+  let mut memo = vec![None; nums.len()];
+  helper(&nums, 0, &mut memo)
+}
+
+pub fn optimized_can_jump(nums: Vec<i32>) -> bool {
+  let mut last_pos = nums.len() - 1;
+  for i in (0..nums.len()).rev() {
+    if i + nums[i] as usize >= last_pos {
+      last_pos = i;
+    }
+  }
+  last_pos == 0
+}
+
+pub fn merge_intervals(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+  let mut sorted = intervals.clone();
+  sorted.sort();
+  
+  let mut merged = vec![sorted[0].clone()];
+
+  for i in 1..sorted.len() {
+    let last = merged.last_mut().unwrap();
+    if last[1] >= sorted[i][0] {
+      last[1] = last[1].max(sorted[i][1]);
+    } else {
+      merged.push(sorted[i].clone());
+    }
+  }
+
+  merged
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_merge_intervals() {
+    let intervals = vec![vec![1, 3], vec![2, 6], vec![8, 10], vec![15, 18]];
+    let merged = merge_intervals(intervals);
+    assert_eq!(merged, vec![vec![1, 6], vec![8, 10], vec![15, 18]]);
+  }
+
+  #[test]
+  fn test_can_jump() {
+    assert!(!can_jump(vec![
+      2, 0, 6, 9, 8, 4, 5, 0, 8, 9, 1, 2, 9, 6, 8, 8, 0, 6, 3, 1, 2, 2, 1, 2, 6, 5, 3, 1, 2, 2, 6,
+      4, 2, 4, 3, 0, 0, 0, 3, 8, 2, 4, 0, 1, 2, 0, 1, 4, 6, 5, 8, 0, 7, 9, 3, 4, 6, 6, 5, 8, 9, 3,
+      4, 3, 7, 0, 4, 9, 0, 9, 8, 4, 3, 0, 7, 7, 1, 9, 1, 9, 4, 9, 0, 1, 9, 5, 7, 7, 1, 5, 8, 2, 8,
+      2, 6, 8, 2, 2, 7, 5, 1, 7, 9, 6
+    ]));
+    assert!(can_jump(vec![2, 3, 1, 1, 4]));
+    assert!(!can_jump(vec![3, 2, 1, 0, 4]));
+    assert!(can_jump(vec![0]));
+    assert!(can_jump(vec![2, 0]));
+    assert!(can_jump(vec![1, 2, 3]));
+    assert!(!can_jump(vec![1, 0, 0, 0]));
+  }
 
   #[test]
   fn test_coin_change() {

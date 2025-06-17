@@ -118,7 +118,11 @@ Uses a layer-by-layer approach to traverse a 2D matrix in spiral order.
 
 ### 55. Jump Game
 
+Solution: Uses a greedy approach to determine if you can reach the last index of an array by checking the maximum reachable index at each step.
+
 ### 56. Merge Intervals
+
+Solution: Sorts intervals by start time and merges overlapping intervals into a single interval.
 
 ### 62. Unique Paths
 
