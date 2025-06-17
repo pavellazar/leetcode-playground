@@ -78,9 +78,99 @@ pub fn spiral_order(matrix: Vec<Vec<i32>>) -> Vec<i32> {
   result
 }
 
+fn safe_access(matrix: &Vec<Vec<i32>>, row: usize, col: usize) -> i32 {
+  if row < matrix.len() && col < matrix[0].len() {
+    matrix[row][col]
+  } else {
+    0
+  }
+}
+
+pub fn unique_paths(m: i32, n: i32) -> i32 {
+  if m == 0 || n == 0 {
+    return 0;
+  }
+
+  let rows = m as usize;
+  let cols = n as usize;
+
+  let mut matrix = vec![vec![0; cols]; rows];
+  matrix[rows - 1][cols - 1] = 1;
+
+  for row in (0..rows).rev() {
+    for col in (0..cols).rev() {
+      if row == rows - 1 && col == cols - 1 {
+        continue; // Don't overwrite the destination cell
+      }
+
+      matrix[row][col] = safe_access(&matrix, row + 1, col) + safe_access(&matrix, row, col + 1);
+    }
+  }
+
+  matrix[0][0]
+}
+
+pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
+  let mut matrix = grid.clone();
+  let rows = matrix.len();
+
+  if rows == 0 {
+    return 0;
+  }
+
+  let cols = matrix[0].len();
+
+  if cols == 0 {
+    return 0;
+  }
+
+  for row in (0..rows).rev() {
+    for col in (0..cols).rev() {
+      if row == rows - 1 && col == cols - 1 {
+        continue; // Don't overwrite the destination cell
+      }
+
+      if col + 1 < cols && row + 1 < rows {
+        matrix[row][col] += matrix[row + 1][col].min(matrix[row][col + 1]);
+      } else if col + 1 < cols {
+        matrix[row][col] += matrix[row][col + 1];
+      } else if row + 1 < rows {
+        matrix[row][col] += matrix[row + 1][col];
+      }
+    }
+  }
+
+  matrix[0][0]
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_min_path_sum() {
+    let grid = vec![vec![1, 3, 1], vec![1, 5, 1], vec![4, 2, 1]];
+    assert_eq!(min_path_sum(grid), 7);
+
+    let grid2 = vec![vec![1, 2, 3], vec![4, 5, 6]];
+    assert_eq!(min_path_sum(grid2), 12);
+
+    let grid3 = vec![vec![1]];
+    assert_eq!(min_path_sum(grid3), 1);
+
+    let grid4: Vec<Vec<i32>> = vec![];
+    assert_eq!(min_path_sum(grid4), 0); // Edge case
+  }
+
+  #[test]
+  fn test_unique_paths() {
+    assert_eq!(unique_paths(3, 7), 28);
+    assert_eq!(unique_paths(3, 2), 3);
+    assert_eq!(unique_paths(7, 3), 28);
+    assert_eq!(unique_paths(3, 3), 6);
+    assert_eq!(unique_paths(1, 1), 1);
+    assert_eq!(unique_paths(0, 0), 0); // Edge case
+  }
 
   #[test]
   fn test_rotate() {

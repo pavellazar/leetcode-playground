@@ -126,7 +126,11 @@ Solution: Sorts intervals by start time and merges overlapping intervals into a 
 
 ### 62. Unique Paths
 
+Solution: Uses dynamic programming to count the number of unique paths from the top-left corner to the bottom-right corner of a grid.
+
 ### 64. Minimum Path Sum
+
+Solution: Uses dynamic programming to find the minimum path sum from the top-left to the bottom-right of a grid by accumulating the minimum sums from adjacent cells.
 
 ### 70. Climbing Stairs
 

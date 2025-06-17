@@ -251,9 +251,8 @@ pub fn optimized_can_jump(nums: Vec<i32>) -> bool {
 pub fn merge_intervals(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
   let mut sorted = intervals.clone();
   sorted.sort();
-  
-  let mut merged = vec![sorted[0].clone()];
 
+  let mut merged = vec![sorted[0].clone()];
   for i in 1..sorted.len() {
     let last = merged.last_mut().unwrap();
     if last[1] >= sorted[i][0] {
