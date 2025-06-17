@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use crate::common::string_utils::sort_string;
+
 pub fn longest_palindrome(s: &str) -> String {
   let s_chars: Vec<char> = s.chars().collect();
   let mut start = 0;
@@ -194,12 +196,6 @@ pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
   }
 
   map.into_values().collect()
-}
-
-fn sort_string(s: &str) -> String {
-  let mut chars: Vec<char> = s.chars().collect();
-  chars.sort_unstable();
-  chars.into_iter().collect()
 }
 
 #[cfg(test)]

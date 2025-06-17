@@ -5,3 +5,5 @@ pub mod lists;
 pub mod matrix;
 pub mod median_finder;
 pub mod trees;
+pub mod dynamic_programming;
+pub mod sliding_window;
