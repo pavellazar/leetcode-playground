@@ -256,7 +256,11 @@ Greedy algorithms make locally optimal choices at each step to achieve a globall
 
 ### 121. Best Time to Buy and Sell Stock
 
+[DONE] Uses a greedy approach to find the maximum profit from buying and selling stock by tracking the minimum price seen so far and calculating potential profits.
+
 ### 169. Majority Element
+
+[DONE] Uses a greedy approach (Boyer-Moore Voting Algorithm) to find the majority element in an array, which appears more than n/2 times.
 
 ## Divide and Conquer
 

@@ -1,5 +1,6 @@
 pub mod arrays;
 pub mod backtracking;
+pub mod divide_and_conquer;
 pub mod dynamic_programming;
 pub mod graphs;
 pub mod greedy;

@@ -1,6 +1,8 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
+use crate::data_structures::tree_node::TreeNode;
+
 pub fn climb_stairs(n: i32) -> i32 {
   fn step(n: i32) -> i32 {
     if n == 0 || n == 1 {
@@ -151,25 +153,6 @@ pub fn count_substrings(s: String) -> i32 {
   }
 
   count
-}
-
-// Definition for a binary tree node.
-#[derive(Debug, PartialEq, Eq)]
-pub struct TreeNode {
-  pub val: i32,
-  pub left: Option<Rc<RefCell<TreeNode>>>,
-  pub right: Option<Rc<RefCell<TreeNode>>>,
-}
-
-impl TreeNode {
-  #[inline]
-  pub fn new(val: i32) -> Self {
-    TreeNode {
-      val,
-      left: None,
-      right: None,
-    }
-  }
 }
 
 // LeetCode #337 - House Robber III
