@@ -38,7 +38,7 @@ fn expand_around_center(s: &[char], left: usize, right: usize) -> (usize, usize)
   ((lhs + 1) as usize, (rhs - lhs - 1) as usize)
 }
 
-pub fn convert(s: &str, num_rows: i32) -> String {
+pub fn zigzag_convert(s: &str, num_rows: i32) -> String {
   if num_rows == 1 {
     return s.to_string();
   }
@@ -213,7 +213,7 @@ mod tests {
 
   #[test]
   fn test_convert() {
-    assert_eq!(convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR");
+    assert_eq!(zigzag_convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR");
   }
 
   #[test]

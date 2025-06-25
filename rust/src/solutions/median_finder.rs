@@ -1,5 +1,6 @@
 use std::{cmp::Reverse, collections::BinaryHeap};
 
+// LeetCode #295 - Find Median from Data Stream
 pub struct MedianFinder {
   max_heap: BinaryHeap<i32>,
   min_heap: BinaryHeap<Reverse<i32>>,

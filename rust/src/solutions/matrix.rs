@@ -143,9 +143,59 @@ pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
   matrix[0][0]
 }
 
+// Leet Code #200 - Number of Islands
+pub fn num_islands(grid: Vec<Vec<char>>) -> i32 {
+  fn consume(grid: &Vec<Vec<char>>, visited: &mut Vec<Vec<bool>>, i: usize, j: usize) {
+    if i >= grid.len() || j >= grid[0].len() || visited[i][j] || grid[i][j] == '0' {
+      return;
+    }
+    visited[i][j] = true;
+    if i > 0 {
+      consume(grid, visited, i - 1, j);
+    }
+    if j > 0 {
+      consume(grid, visited, i, j - 1);
+    }
+    consume(grid, visited, i + 1, j);
+    consume(grid, visited, i, j + 1);
+  }
+
+  let rows = grid.len();
+  let cols = grid[0].len();
+  let mut visited = vec![vec![false; cols]; rows];
+  let mut islands = 0;
+  for i in 0..grid.len() {
+    for j in 0..grid[0].len() {
+      if grid[i][j] == '1' && !visited[i][j] {
+        islands += 1;
+        consume(&grid, &mut visited, i, j);
+      }
+    }
+  }
+
+  islands
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_num_islands() {
+    let grid = vec![
+      vec!['1', '1', '0', '0', '0'],
+      vec!['1', '1', '0', '0', '0'],
+      vec!['0', '0', '1', '0', '0'],
+      vec!['0', '0', '0', '1', '1'],
+    ];
+    assert_eq!(num_islands(grid), 3);
+
+    let grid2 = vec![vec!['1']];
+    assert_eq!(num_islands(grid2), 1);
+
+    let grid3: Vec<Vec<char>> = vec![];
+    assert_eq!(num_islands(grid3), 0); // Edge case
+  }
 
   #[test]
   fn test_min_path_sum() {
