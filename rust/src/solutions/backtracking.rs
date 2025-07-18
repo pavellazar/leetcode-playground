@@ -180,9 +180,82 @@ pub fn exist(board: Vec<Vec<char>>, word: String) -> bool {
   false
 }
 
+// LeetCode #17 - Letter Combinations of a Phone Number
+pub fn letter_combinations(digits: String) -> Vec<String> {
+  let mut combinations = vec![];
+
+  let mut map = std::collections::HashMap::new();
+  map.insert('2', vec!['a', 'b', 'c']);
+  map.insert('3', vec!['d', 'e', 'f']);
+  map.insert('4', vec!['g', 'h', 'i']);
+  map.insert('5', vec!['j', 'k', 'l']);
+  map.insert('6', vec!['m', 'n', 'o']);
+  map.insert('7', vec!['p', 'q', 'r', 's']);
+  map.insert('8', vec!['t', 'u', 'v']);
+  map.insert('9', vec!['w', 'x', 'y', 'z']);
+
+  if digits.is_empty() {
+    return combinations;
+  }
+
+  fn backtrack(
+    digits: &str,
+    index: usize,
+    current: &mut String,
+    map: &std::collections::HashMap<char, Vec<char>>,
+    combinations: &mut Vec<String>,
+  ) {
+    if index == digits.len() {
+      combinations.push(current.clone());
+      return;
+    }
+
+    if let Some(chars) = map.get(&digits.chars().nth(index).unwrap()) {
+      for &c in chars {
+        current.push(c);
+        backtrack(digits, index + 1, current, map, combinations);
+        current.pop();
+      }
+    }
+  }
+
+  let mut current = String::new();
+  backtrack(&digits, 0, &mut current, &map, &mut combinations);
+  combinations
+    .into_iter()
+    .map(|s| s.chars().collect::<String>())
+    .collect()
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_letter_combinations() {
+    assert_eq!(letter_combinations("".to_string()), Vec::<String>::new());
+
+    let mut result = letter_combinations("2".to_string());
+    result.sort();
+    assert_eq!(result, vec!["a", "b", "c"]);
+
+    let mut result = letter_combinations("23".to_string());
+    result.sort();
+    assert_eq!(
+      result,
+      vec!["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+    );
+
+    let result = letter_combinations("1".to_string());
+    assert_eq!(result, Vec::<String>::new());
+
+    let mut result = letter_combinations("234".to_string());
+    result.sort();
+    assert!(result.contains(&"adg".to_string()));
+    assert!(result.contains(&"beh".to_string()));
+    assert!(result.contains(&"cfi".to_string()));
+    assert_eq!(result.len(), 27);
+  }
 
   #[test]
   fn test_solve_n_queens() {

@@ -1,40 +1,6 @@
 use std::{cmp::Reverse, collections::BinaryHeap};
 
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub struct ListNode {
-  pub val: i32,
-  pub next: Option<Box<ListNode>>,
-}
-
-impl ListNode {
-  #[inline]
-  fn new(val: i32) -> Self {
-    ListNode { next: None, val }
-  }
-
-  pub fn from_vec(values: Vec<i32>) -> Option<Box<ListNode>> {
-    let mut head = None;
-    let mut tail = &mut head;
-
-    for v in values {
-      let new_node = Box::new(ListNode::new(v));
-      *tail = Some(new_node);
-      tail = &mut tail.as_mut().unwrap().next;
-    }
-
-    head
-  }
-
-  pub fn to_vec(head: Option<Box<ListNode>>) -> Vec<i32> {
-    let mut vec = Vec::new();
-    let mut current = head;
-    while let Some(node) = current {
-      vec.push(node.val);
-      current = node.next;
-    }
-    vec
-  }
-}
+use crate::data_structures::list_node::ListNode;
 
 pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
   let mut dummy = Box::new(ListNode { val: 0, next: head });

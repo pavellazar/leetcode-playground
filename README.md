@@ -268,7 +268,12 @@ Divide and conquer breaks problems into smaller subproblems, solves them recursi
 
 ### 105. Construct Binary Tree from Preorder and Inorder Traversal
 
-Build a binary tree from traversals. Tests recursive splitting.
+[DONE] Constructs a binary tree from preorder and inorder traversal arrays by recursively dividing the arrays into left and right subtrees.
+
+Inorder and Preorder Theory Notes
+
+> 1. Inorder traversal visits nodes in the order: left, root, right.
+> 2. Preorder traversal visits nodes in the order: root, left, right.
 
 ### 273. Integer to English Words
 
@@ -284,13 +289,15 @@ Binary search efficiently finds elements or boundaries in sorted data by repeate
 
 ### 34. Find First and Last Position of Element in Sorted Array
 
+[DONE] Uses binary search to find the first and last positions of a target element in a sorted array, handling edge cases for duplicates.
+
 ### 153. Find Minimum in Rotated Sorted Array
+
+[DONE] Uses binary search to find the minimum element in a rotated sorted array by checking midpoints and adjusting search boundaries based on comparisons.
 
 ### 704. Binary Search
 
-### 1060. Find Missing Number in a Sorted Array
-
-Use binary search to find the missing number in a sorted array of unique integers. The array contains numbers from 0 to n, with one number missing. Tests binary search and edge case handling.
+[DONE] Implements binary search to find a target value in a sorted array, returning its index or -1 if not found.
 
 ## Linked List
 
@@ -310,7 +317,11 @@ Linked list problems involve manipulating or traversing singly or doubly linked 
 
 ### 141. Linked List Cycle
 
+[DONE] Uses a slow and fast pointer approach (Floyd's Cycle Detection) to determine if a linked list has a cycle.
+
 ### 142. Linked List Cycle II
+
+[DONE] Uses a slow and fast pointer approach to find the starting node of a cycle in a linked list, if it exists.
 
 ### 148. Sort List
 
@@ -338,6 +349,8 @@ Tree problems involve traversing or manipulating binary trees or binary search t
 
 ### 98. Validate Binary Search Tree
 
+[DONE] Validates a binary search tree by checking if each node's value is within the valid range defined by its ancestors.
+
 ### 100. Same Tree
 
 ### 101. Symmetric Tree
@@ -347,8 +360,6 @@ Tree problems involve traversing or manipulating binary trees or binary search t
 ### 103. Binary Tree Zigzag Level Order Traversal
 
 ### 104. Maximum Depth of Binary Tree
-
-### 105. Construct Binary Tree from Preorder and Inorder Traversal
 
 ### 108. Convert Sorted Array to Binary Search Tree
 
@@ -584,3 +595,15 @@ This category includes problems that don't fit neatly into other categories, oft
 ### 412. Fizz Buzz
 
 [DONE] Generates a FizzBuzz sequence based on divisibility rules for 3 and 5.
+
+### 3. Lognest Substring without repeated characters
+
+[DONE] Finds the length of the longest substring without repeating characters using a sliding window technique with a hash set to track characters.
+
+### 16. 3Sum Closest
+
+[DONE] Uses a two-pointer approach with a sorted array to find the sum of three integers closest to a target value, iterating through pairs and adjusting pointers based on comparisons.
+
+### 17. Letter Combinations of a Phone Number
+
+[DONE] Uses backtracking to generate all possible letter combinations for a given phone number based on the mapping of digits to letters.

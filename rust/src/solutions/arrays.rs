@@ -2,6 +2,46 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
+  let count = nums1.len() + nums2.len();
+  let mut median_indexes = vec![];
+
+  if count % 2 == 1 {
+    median_indexes.push(count / 2);
+  } else {
+    median_indexes.push(count / 2 - 1);
+    median_indexes.push(count / 2);
+  }
+
+  let (mut left, mut right) = (0, 0);
+  let mut merged = vec![];
+
+  while left < nums1.len() && right < nums2.len() {
+    if nums1[left] < nums2[right] {
+      merged.push(nums1[left]);
+      left += 1;
+    } else {
+      merged.push(nums2[right]);
+      right += 1;
+    }
+  }
+
+  if left < nums1.len() {
+    merged.extend_from_slice(&nums1[left..]);
+  }
+
+  if right < nums2.len() {
+    merged.extend_from_slice(&nums2[right..]);
+  }
+
+  let mut median = 0;
+  for i in 0..median_indexes.len() {
+    median += merged[median_indexes[i]];
+  }
+
+  median as f64 / median_indexes.len() as f64
+}
+
 // LeetCode #238 - Product of Array Except Self
 pub fn product_except_self(nums: Vec<i32>) -> Vec<i32> {
   let mut result = nums.clone();
@@ -177,6 +217,36 @@ fn three_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
   }
 
   result
+}
+
+// LeetCode #16 - 3Sum Closest
+pub fn three_sum_closest(nums: Vec<i32>, target: i32) -> i32 {
+  let mut nums = nums;
+  nums.sort_unstable();
+  let mut closest = nums[0] + nums[1] + nums[2];
+
+  for i in 0..nums.len() {
+    if i > 0 && nums[i] == nums[i - 1] {
+      continue;
+    }
+
+    let mut left = i + 1;
+    let mut right = nums.len() - 1;
+
+    while left < right {
+      let sum = nums[i] + nums[left] + nums[right];
+      if (sum - target).abs() < (closest - target).abs() {
+        closest = sum;
+      }
+      if sum < target {
+        left += 1;
+      } else {
+        right -= 1;
+      }
+    }
+  }
+
+  closest
 }
 
 // LeetCode #26 - Remove Duplicates from Sorted Array
@@ -658,5 +728,35 @@ mod tests {
     assert_eq!(find_missing_number(vec![1, 2, 3]), 0);
     assert_eq!(find_missing_number(vec![0]), 1);
     assert_eq!(find_missing_number(vec![]), 0);
+  }
+
+  #[test]
+  fn test_find_median_in_sorted_arrays() {
+    let nums1 = vec![1, 3];
+    let nums2 = vec![2];
+    assert_eq!(find_median_sorted_arrays(nums1, nums2), 2.0);
+
+    let nums1 = vec![1, 2];
+    let nums2 = vec![3, 4];
+    assert_eq!(find_median_sorted_arrays(nums1, nums2), 2.5);
+
+    let nums1 = vec![0, 0];
+    let nums2 = vec![0, 0];
+    assert_eq!(find_median_sorted_arrays(nums1, nums2), 0.0);
+
+    let nums1 = vec![];
+    let nums2 = vec![1];
+    assert_eq!(find_median_sorted_arrays(nums1, nums2), 1.0);
+  }
+
+  #[test]
+  fn test_three_sum_closest() {
+    assert_eq!(three_sum_closest(vec![-1, 2, 1, -4], 1), 2);
+    assert_eq!(three_sum_closest(vec![0, 0, 0], 1), 0);
+    assert_eq!(three_sum_closest(vec![1, 1, 1, 0], -100), 2);
+    assert_eq!(three_sum_closest(vec![1, 1, -1, -1, 3], -1), -1);
+    assert_eq!(three_sum_closest(vec![1, 2, 5, 10, 11], 12), 13);
+    assert_eq!(three_sum_closest(vec![0, 2, 1, -3], 1), 0);
+    assert_eq!(three_sum_closest(vec![1, 1, 1, 1], 3), 3);
   }
 }

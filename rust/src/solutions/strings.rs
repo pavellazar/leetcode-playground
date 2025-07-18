@@ -198,6 +198,33 @@ pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
   map.into_values().collect()
 }
 
+pub fn length_of_longest_substring(s: String) -> i32 {
+  let mut left = 0;
+  let mut right = 0;
+
+  if s.len() == 0 {
+    return 0;
+  }
+
+  let mut max_len = 1;
+  let mut map = HashMap::new();
+  let chars: Vec<char> = s.chars().collect();
+
+  while right < s.len() {
+    if map.contains_key(&chars[right]) {
+      max_len = max_len.max(right - left);
+      left = left.max(*map.get(&chars[right]).unwrap() + 1);
+      map.insert(chars[right], right);
+      right += 1;
+    } else {
+      map.insert(chars[right], right);
+      right += 1;
+    }
+  }
+
+  max_len.max(right - left) as i32
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -298,7 +325,22 @@ mod tests {
     let result = group_anagrams(input);
     assert_eq!(result.len(), 3);
     assert!(result.iter().any(|v| v == &vec!["bat".to_string()]));
-    assert!(result.iter().any(|v| v == &vec!["eat".to_string(), "tea".to_string(), "ate".to_string()]));
-    assert!(result.iter().any(|v| v == &vec!["tan".to_string(), "nat".to_string()]));
+    assert!(result
+      .iter()
+      .any(|v| v == &vec!["eat".to_string(), "tea".to_string(), "ate".to_string()]));
+    assert!(result
+      .iter()
+      .any(|v| v == &vec!["tan".to_string(), "nat".to_string()]));
+  }
+
+  #[test]
+  fn test_length_of_longest_substring() {
+    assert_eq!(length_of_longest_substring("abcabcbb".to_string()), 3);
+    assert_eq!(length_of_longest_substring("bbbbb".to_string()), 1);
+    assert_eq!(length_of_longest_substring("pwwkew".to_string()), 3);
+    assert_eq!(length_of_longest_substring("".to_string()), 0);
+    assert_eq!(length_of_longest_substring("a".to_string()), 1);
+    assert_eq!(length_of_longest_substring("dvdf".to_string()), 3);
+    assert_eq!(length_of_longest_substring("abba".to_string()), 2);
   }
 }

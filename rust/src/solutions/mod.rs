@@ -1,5 +1,6 @@
 pub mod arrays;
 pub mod backtracking;
+pub mod binary_search;
 pub mod divide_and_conquer;
 pub mod dynamic_programming;
 pub mod graphs;
@@ -11,6 +12,7 @@ pub mod matrix;
 pub mod median_finder;
 pub mod miscellaneous;
 pub mod numbers;
+pub mod recursion;
 pub mod sliding_window;
 pub mod sorting;
 pub mod stacks;
