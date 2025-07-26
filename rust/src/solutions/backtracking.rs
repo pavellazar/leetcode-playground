@@ -227,10 +227,45 @@ pub fn letter_combinations(digits: String) -> Vec<String> {
     .collect()
 }
 
+// LeetCode #22 - Generate Parentheses
+pub fn generate_parenthesis(n: i32) -> Vec<String> {
+  fn backtrack(s: String, open: i32, close: i32, max: i32, result: &mut Vec<String>) {
+    if s.len() == (max * 2) as usize {
+      result.push(s);
+      return;
+    }
+    if open < max {
+      backtrack(format!("{}(", s), open + 1, close, max, result);
+    }
+    if close < open {
+      backtrack(format!("{})", s), open, close + 1, max, result);
+    }
+  }
+
+  let mut result = Vec::new();
+  backtrack(String::new(), 0, 0, n, &mut result);
+  result
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
 
+  #[test]
+  fn test_generate_parenthesis() {
+    let result = generate_parenthesis(3);
+    assert_eq!(
+      result,
+      vec![
+        "((()))".to_string(),
+        "(()())".to_string(),
+        "(())()".to_string(),
+        "()(())".to_string(),
+        "()()()".to_string()
+      ]
+    );
+  }
+  
   #[test]
   fn test_letter_combinations() {
     assert_eq!(letter_combinations("".to_string()), Vec::<String>::new());

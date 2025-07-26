@@ -249,6 +249,48 @@ pub fn three_sum_closest(nums: Vec<i32>, target: i32) -> i32 {
   closest
 }
 
+// LeetCode #18 - 4Sum
+pub fn four_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+  let mut nums = nums;
+  nums.sort_unstable();
+  let mut result = Vec::new();  
+  for i in 0..nums.len() {
+    if i > 0 && nums[i] == nums[i - 1] {
+      continue;
+    }
+
+    for j in i + 1..nums.len() {
+      if j > i + 1 && nums[j] == nums[j - 1] {
+        continue;
+      }
+
+      let mut left = j + 1;
+      let mut right = nums.len() - 1;
+
+      while left < right {
+        let sum = nums[i] as i64 + nums[j] as i64 + nums[left] as i64 + nums[right] as i64;
+        if sum == target as i64 {
+          result.push(vec![nums[i], nums[j], nums[left], nums[right]]);
+          while left < right && nums[left] == nums[left + 1] {
+            left += 1;
+          }
+          while left < right && nums[right] == nums[right - 1] {
+            right -= 1;
+          }
+          left += 1;
+          right -= 1;
+        } else if sum < target as i64 {
+          left += 1;
+        } else {
+          right -= 1;
+        }
+      }
+    }
+  }
+
+  result
+}
+
 // LeetCode #26 - Remove Duplicates from Sorted Array
 pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
   if nums.is_empty() {
@@ -758,5 +800,19 @@ mod tests {
     assert_eq!(three_sum_closest(vec![1, 2, 5, 10, 11], 12), 13);
     assert_eq!(three_sum_closest(vec![0, 2, 1, -3], 1), 0);
     assert_eq!(three_sum_closest(vec![1, 1, 1, 1], 3), 3);
+  }
+
+  #[test]
+  fn test_four_sum() {
+    let nums = vec![1, 0, -1, 0, -2, 2];
+    let target = 0;
+    let result = four_sum(nums, target);
+    assert_eq!(result.len(), 3);
+    assert!(result.contains(&vec![-2, 0, 0, 2]));
+    assert!(result.contains(&vec![-1, 0, 0, 1])); 
+
+    let nums = vec![1000000000,1000000000,1000000000,1000000000];
+    let result = four_sum(nums, -294967296);
+    assert_eq!(result.len(), 0);
   }
 }

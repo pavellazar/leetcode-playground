@@ -10,6 +10,10 @@ This category focuses on problems that leverage arrays and hash-based data struc
 
 [DONE] Uses a hash map to subtract the remainder in order to find the solutions.
 
+### 18. 4Sum
+
+[DONE] Uses a two-pointer approach with a sorted array to find quadruplets that sum to a target value.
+
 ### 49. Group Anagrams
 
 [DONE] Groups anagrams by sorting each string and using a hash map to collect them.
@@ -325,7 +329,11 @@ Linked list problems involve manipulating or traversing singly or doubly linked 
 
 ### 148. Sort List
 
+[DONE] Uses merge sort to sort a linked list by recursively splitting and merging sorted sublists.
+
 ### 160. Intersection of Two Linked Lists
+
+[DONE] Uses two pointers to find the intersection node of two linked lists by aligning their lengths and traversing together.
 
 ### 206. Reverse Linked List
 
@@ -333,7 +341,17 @@ Linked list problems involve manipulating or traversing singly or doubly linked 
 
 ### 234. Palindrome Linked List
 
+[DONE]
+
+- Uses a two-pointer approach to check if a linked list is a palindrome by reversing the second half and comparing it with the first half.
+- Alternatively, it can use a stack to store the first half and compare it with the second half.
+
 ### 328. Odd Even Linked List
+
+[DONE]
+
+- Rearranges a linked list such that all odd-indexed nodes come before even-indexed nodes while maintaining their relative order.
+- Uses two pointers to separate odd and even nodes, then connects them at the end.
 
 ### 445. Add Two Numbers II
 
